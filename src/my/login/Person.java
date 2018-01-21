@@ -1,6 +1,8 @@
 
 package my.login;
+import java.util.List;
 import java.sql.*;
+import java.util.ArrayList;
 /**
  *
  * @author supun
@@ -11,6 +13,14 @@ public class Person extends javax.swing.JFrame {
     /**
      * Creates new form Person
      */
+    public static long startingPoint;
+    public static long keyStroke1;
+    List<Long> alist = new ArrayList<>();
+    
+    List<Long> dlist = new ArrayList<>();
+
+    public long period;
+    
     public static int word1;
     public static int word2;
     public static int word3;
@@ -21,7 +31,7 @@ public class Person extends javax.swing.JFrame {
     public static int word8;
     public static int word9;
     public static int word10;
-    public static int startingPoint;
+    
 
     public static Connection myConn = null;
     public static Statement myStat  = null;
@@ -37,12 +47,12 @@ public class Person extends javax.swing.JFrame {
         this.setLocationRelativeTo(null); //center login form on the screen
     }
     
-    public void writeToDatabase(String ID,String name,int word1,int word2,int word3,int word4,int word5){
+    public void writeToDatabase(String ID,String name,long letter1,long letter2,long letter3,long letter4,long letter5,long letter6,long letter7){
         try{
             myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/people", user, pass);
             
             myStat = myConn.createStatement();
-            int s = myStat.executeUpdate("INSERT INTO person VALUES('"+ID+"','"+name+"','"+word1+"','"+word2+"','"+word3+"','"+word4+"','"+word5+"')");
+            int s = myStat.executeUpdate("INSERT INTO person VALUES('"+ID+"','"+name+"','"+letter1+"','"+letter2+"','"+letter3+"','"+letter4+"','"+letter5+"','"+letter6+"','"+letter7+"')");
             
         }catch(Exception e){
             System.out.println(e);
@@ -63,27 +73,14 @@ public class Person extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         jButtonSignUp = new javax.swing.JButton();
         jButtonLogin = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jTextID = new javax.swing.JTextField();
         jTextName = new javax.swing.JTextField();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        jTextElephant = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButtonStart = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -92,14 +89,6 @@ public class Person extends javax.swing.JFrame {
         jLabel2.setText("Name   :");
 
         jLabel3.setText("elepant         :");
-
-        jLabel4.setText("avissawella   :");
-
-        jLabel5.setText("eheliyagoda  :");
-
-        jLabel6.setText("colombo        :");
-
-        jLabel7.setText("kataragama  :");
 
         jButtonSignUp.setText("Sign up");
         jButtonSignUp.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -117,47 +106,18 @@ public class Person extends javax.swing.JFrame {
 
         jLabel8.setText("     ID   :");
 
-        jLabel9.setText("Write these 5 words in the text boxes !!!!");
+        jTextElephant.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextElephantKeyPressed(evt);
+            }
+        });
 
-        jButton1.setText("enter");
+        jLabel9.setText("Write the word Elephant WITHOUT making any mistake");
+
+        jButton1.setText("Clear");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText("enter");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jButton3.setText("enter");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        jButton4.setText("enter");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-
-        jButton5.setText("enter");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-
-        jButtonStart.setText("Start");
-        jButtonStart.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonStartActionPerformed(evt);
             }
         });
 
@@ -173,35 +133,16 @@ public class Person extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(25, 25, 25)
+                                .addComponent(jTextElephant, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 160, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel4)
-                                            .addComponent(jLabel3)
-                                            .addComponent(jLabel5)
-                                            .addComponent(jLabel6)
-                                            .addComponent(jLabel7))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                                            .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                                            .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING))
-                                        .addGap(18, 18, 18))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jButtonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(28, 28, 28)
-                                        .addComponent(jButtonSignUp)
-                                        .addGap(28, 28, 28)))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton1)
-                                    .addComponent(jButton2)
-                                    .addComponent(jButton4)
-                                    .addComponent(jButton3)
-                                    .addComponent(jButton5))
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(jButtonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(28, 28, 28)
+                                .addComponent(jButtonSignUp)
+                                .addGap(28, 280, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -214,10 +155,10 @@ public class Person extends javax.swing.JFrame {
                                     .addComponent(jTextID, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jTextName, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addContainerGap(92, Short.MAX_VALUE))))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(151, 151, 151)
-                .addComponent(jButtonStart)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(67, 67, 67))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,40 +172,15 @@ public class Person extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jTextName, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jButtonStart)
-                .addGap(13, 13, 13)
+                .addGap(63, 63, 63)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel6)
-                                .addComponent(jButton4))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton5)))
-                    .addComponent(jButton3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                    .addComponent(jTextElephant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(65, 65, 65)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonSignUp)
                     .addComponent(jButtonLogin))
@@ -285,60 +201,35 @@ public class Person extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        word4 = (int) (System.currentTimeMillis() % 10000000);
-        word9 = word4 - word3;
-        System.out.println(word9);        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        word3 = (int) (System.currentTimeMillis() % 10000000);
-        word8 = word3 - word2;
-        System.out.println(word8);       // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButtonStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStartActionPerformed
-        startingPoint = (int) (System.currentTimeMillis()%10000000);
-        System.out.println(startingPoint);
-                                // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonStartActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        word1 = (int) (System.currentTimeMillis() % 10000000);
-        word6 = word1 - startingPoint;
-        System.out.println(word6);        // 
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        word2 = (int) (System.currentTimeMillis() % 10000000);
-        word7 = word2 - word1;
-        System.out.println(word7);        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        word5 = (int) (System.currentTimeMillis() % 10000000);
-        word10 = word5 - word4;
-        System.out.println(word10);         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
-
     private void jButtonSignUpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSignUpMouseClicked
         // sign up code
-        System.out.println("mouse clicked");
+        
         Person man = new Person();
         System.out.println("new object is created");
-        man.writeToDatabase(jTextID.getText(),jTextName.getText(), word6, word7, word8, word9, word10);
+        for(int i=0;i<alist.size()-1;i++){
+            period = alist.get(i+1)- alist.get(i);
+            dlist.add(period);
+            
+        }
+
+        man.writeToDatabase(jTextID.getText(),jTextName.getText(),dlist.get(0),dlist.get(1),dlist.get(2),dlist.get(3),dlist.get(4),dlist.get(5),dlist.get(6));
         
     }//GEN-LAST:event_jButtonSignUpMouseClicked
 
     private void jButtonLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonLoginMouseClicked
         //login button code 
+        for(int i=0;i<alist.size()-1;i++){
+            period = alist.get(i+1)- alist.get(i);
+            dlist.add(period);
+            
+        }
         try{
             myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/people", user, pass);
             pStat = myConn.prepareStatement("SELECT * FROM person WHERE ID = ? AND name = ?");
@@ -347,7 +238,13 @@ public class Person extends javax.swing.JFrame {
             myQuery1 = pStat.executeQuery();
 
             if(myQuery1.next()){
-                System.out.println(myQuery1.getString("name")+" , you are logged in");
+                if(((Long.parseLong(myQuery1.getString("letter1"))-dlist.get(0))< 10000000)&&((Long.parseLong(myQuery1.getString("letter1"))-dlist.get(0))< 10000000)){
+                    System.out.println("Hello "+jTextName.getText() );
+                    
+                }
+                System.out.println(dlist.get(0));
+                System.out.println(dlist.get(1));
+                
             }
             
             
@@ -355,6 +252,17 @@ public class Person extends javax.swing.JFrame {
             System.out.println(e);
         }
     }//GEN-LAST:event_jButtonLoginMouseClicked
+
+    private void jTextElephantKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextElephantKeyPressed
+        keyStroke1 = System.nanoTime();
+        alist.add(keyStroke1);        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextElephantKeyPressed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        jTextID.setText(" ");
+        jTextName.setText(" ");
+        jTextElephant.setText(" ");        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
   
     /**
      * @param args the command line arguments
@@ -399,28 +307,15 @@ public class Person extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButtonLogin;
     private javax.swing.JButton jButtonSignUp;
-    private javax.swing.JButton jButtonStart;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextElephant;
     private javax.swing.JTextField jTextID;
     private javax.swing.JTextField jTextName;
     // End of variables declaration//GEN-END:variables
